@@ -39,41 +39,38 @@
 					model: Model,
 
 					// Make sure this is set
-				  url: '/api/index.php/jcapi/CPUsers'
+				  url: '/api/index.php/jcapi/CPUsers',
+
+				  parse: function(response) {
+
+			      // Return the data
+			      return response.data;
+
+			    }
 
 				});
 
 				// Create our collection
 				var myCollection = new Collection();
 
-				// Fetch the data
-				// myCollection.fetch();
+				// Fetch the data via crudder
 				Backbone.Crudder.reading({
 
 					collection: myCollection,
 					data: {
+						
 						test: 1,
 						another: 2
+					
 					},
-					beforeSend: function() {
-						window.alertify.success('Before Send')
-					},
-					afterSend: function() {
-						window.alertify.success('After send')
-					},
-					onSuccess: function() {
-						window.alertify.success('Data received')
-					},
-					onError: function() {
-						window.alertify.error('Unable to retrieve data')
-					}
+					successMessage: 'Data received',
+					errorMessage: 'No data received'
 
 				}, function(options) {
 
 					console.log(options.success);
 					console.log(options.collection);
 					console.log(options.response);
-					console.log(options.options);
 
 				});
 

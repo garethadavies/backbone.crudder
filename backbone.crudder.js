@@ -47,29 +47,28 @@ Author(s):
     */
 		reading: function(options, callback) {
 
-			console.log(options);
+			// console.log(options);
+
+			var that = this;
 
 			options.collection.fetch({
 
         // Show the loader overlay
-        beforeSend: options.beforeSend(),
+        beforeSend: this.beforeSend(),
 
         // Set any QS values we require
         data: options.data,
 
         // Has the collection been returned?
-        success: function(collection, response, options) {
+        success: function(collection, response) {
 
-          if (options.afterSend) {
+          that.afterSend();
 
+					that.onSuccess({
 
-					}
+						message: options.successMessage
 
-					if (options.showSuccess) {
-
-
-
-					}
+					});
 
 					// Fire the callback
           if (callback) {
@@ -78,8 +77,7 @@ Author(s):
 
 							success: true,
 							collection: collection,
-							response: response,
-							options: options
+							response: response
 
             });
 
@@ -87,29 +85,24 @@ Author(s):
 
         },
 
-        error: function(collection, response, options) {
+        error: function(collection, response) {
 
-          if (options.afterSend) {
+          that.afterSend();
 
-						
+					that.onError({
 
-					}
+						message: options.errorMessage
 
-          if (options.showError) {
-
-
-						
-					}
+					});
 
 					// Fire the callback
           if (callback) {
 
             callback({
 
-							success: true,
+							success: false,
 							collection: collection,
-							response: response,
-							options: options
+							response: response
 
             });
 
@@ -130,6 +123,42 @@ Author(s):
 		deleting: function(options) {
 
 			console.log('deleting');
+
+		},
+
+		beforeSend: function() {
+
+			// This method can be used to perform any actions
+			// that are required before the AJAX request
+			// e.g. Show a loader graphic
+			console.log('Before Send');
+
+		},
+
+		afterSend: function() {
+
+			// This method can be used to perform any actions
+			// that are required after the AJAX request has completed
+			// e.g. Hide a loader graphic
+			console.log('After send');
+
+		},
+
+		onSuccess: function(options) {
+
+			// This method can be used to perform any actions
+			// that are required after a successful request
+			// e.g. Show a message to inform the user all is ok
+			console.log('Data received');
+
+		},
+
+		onError: function(options) {
+
+			// This method can be used to perform any actions
+			// that are required after a unsuccessful request
+			// e.g. Show a message to inform the user all is not ok
+			console.log('Unable to retrieve data');
 
 		}
 
