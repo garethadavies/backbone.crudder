@@ -25,50 +25,39 @@ Author(s):
 	/**
   The Backbone Crudder
   @object Backbone.Crudder
-  @param ?? {Integer} ??
   */
 	Backbone.Crudder = {
 
 		/**
     Creating
     @method creating
-    @param ?? {Object} ??
+    @param entity {Object} The collection or model to fetch
+    @param entityData {Object} The entity data to save
+    @param wait {Boolean} Wait for a server to respond
+    @param successMessage {String} Message shown on a successful request
+    @param errorMessage {String} Message shown on a failed request
     */
-		creating: function(options) {
-
-		},
-
-		/**
-    Reading
-    @method reading
-    @param ?? {Object} ??
-    collection
-    data (Object)
-    */
-		reading: function(options, callback) {
-
-			// console.log(options);
+		creatingUpdating: function(options, callback) {
 
 			var that = this;
 
-			options.collection.fetch({
+			// Remove this model
+      options.entity.save(options.entityData, {
 
-        // Show the loader overlay
-        beforeSend: new Backbone.Crudder.beforeSend().start(),
+        // Wait for a response from the server
+        wait: options.wait,
 
-        // Set any QS values we require
-        data: options.data,
+        // Show the loader overlay or whatever
+        beforeSend: this.beforeCheck(),
 
         // Has the collection been returned?
-        success: function(collection, response) {
+        success: function(data, response) {
 
-          var afterSend = new Backbone.Crudder.afterSend().start();
+          // Do we perform an after send event?
+          that.afterCheck();
 
-					var onSuccess = new Backbone.Crudder.onSuccess().start({
-
-						message: options.successMessage
-
-					});
+          // Do we perform an on success event?
+          that.successCheck(options);
 
 					// Fire the callback
           if (callback) {
@@ -76,7 +65,7 @@ Author(s):
             callback({
 
 							success: true,
-							collection: collection,
+							data: data,
 							response: response
 
             });
@@ -85,15 +74,13 @@ Author(s):
 
         },
 
-        error: function(collection, response) {
+        error: function(data, response) {
 
-          var afterSend = new Backbone.Crudder.afterSend().start();
+          // Do we perform an after send event?
+          that.afterCheck();
 
-					var onError = new Backbone.Crudder.onError().start({
-
-						message: options.errorMessage
-
-					});
+          // Do we perform an on error event?
+          that.errorCheck(options);
 
 					// Fire the callback
           if (callback) {
@@ -101,7 +88,7 @@ Author(s):
             callback({
 
 							success: false,
-							collection: collection,
+							data: data,
 							response: response
 
             });
@@ -115,24 +102,231 @@ Author(s):
 		},
 
 		/**
-    Updating
-    @method updating
-    @param ?? {Object} ??
+    Reading
+    @method reading
+    @param entity {Object} The collection or model to fetch
+    @param successMessage {String} Message shown on a successful request
+    @param errorMessage {String} Message shown on a failed request
     */
-		updating: function(options) {
+		reading: function(options, callback) {
 
-			console.log('updating');
+			var that = this;
+
+			// Fetch the data
+			options.entity.fetch({
+
+        // Show the loader overlay or whatever
+        beforeSend: this.beforeCheck(),
+
+        // Set any QS values we require
+        data: options.data,
+
+        // Has the collection been returned?
+        success: function(data, response) {
+
+          // Do we perform an after send event?
+          that.afterCheck();
+
+          // Do we perform an on success event?
+          that.successCheck(options);
+
+					// Fire the callback
+          if (callback) {
+
+            callback({
+
+							success: true,
+							data: data,
+							response: response
+
+            });
+
+          }
+
+        },
+
+        error: function(data, response) {
+
+          // Do we perform an after send event?
+          that.afterCheck();
+
+          // Do we perform an on error event?
+          that.errorCheck(options);
+
+					// Fire the callback
+          if (callback) {
+
+            callback({
+
+							success: false,
+							data: data,
+							response: response
+
+            });
+
+          }
+
+        }
+
+      });
 
 		},
 
 		/**
     Deleting
     @method deleting
-    @param ?? {Object} ??
+    @param entity {Object} The collection or model to fetch
+    @param wait {Boolean} Wait for a server to respond
+    @param successMessage {String} Message shown on a successful request
+    @param errorMessage {String} Message shown on a failed request
     */
-		deleting: function(options) {
+		deleting: function(options, callback) {
 
-			console.log('deleting');
+			var that = this;
+
+			// Remove this model
+      options.entity.destroy({
+
+        // Wait for a response from the server
+        wait: options.wait,
+
+        // Show the loader overlay or whatever
+        beforeSend: this.beforeCheck(),
+
+        // Has the collection been returned?
+        success: function(data, response) {
+
+          // Do we perform an after send event?
+          that.afterCheck();
+
+          // Do we perform an on success event?
+          that.successCheck(options);
+
+					// Fire the callback
+          if (callback) {
+
+            callback({
+
+							success: true,
+							data: data,
+							response: response
+
+            });
+
+          }
+
+        },
+
+        error: function(data, response) {
+
+          // Do we perform an after send event?
+          that.afterCheck();
+
+          // Do we perform an on error event?
+          that.errorCheck(options);
+
+					// Fire the callback
+          if (callback) {
+
+            callback({
+
+							success: false,
+							data: data,
+							response: response
+
+            });
+
+          }
+
+        }
+
+      });
+
+		},
+
+		/**
+    Before send check
+    @method beforeCheck
+    */
+		beforeCheck: function() {
+
+			var beforeSend = new Backbone.Crudder.beforeSend();
+
+      if (beforeSend.activated) {
+
+				beforeSend.start();
+
+			}
+
+		},
+
+		/**
+    After send check
+    @method afterCheck
+    */
+		afterCheck: function() {
+
+			var afterSend = new Backbone.Crudder.afterSend();
+
+      if (afterSend.activated) {
+
+				afterSend.start();
+
+			}
+
+		},
+
+		/**
+    On Success check
+    @method successCheck
+    */
+		successCheck: function(options) {
+
+			// Has a success message been supplied?
+      if (options.successMessage) {
+
+				var onSuccess = new Backbone.Crudder.onSuccess();
+
+				// Has a onSuccess been activited?
+				if (onSuccess.activated) {
+
+					// Call the start method
+					onSuccess.start({
+
+						message: options.successMessage
+
+					});
+
+				}
+
+			}
+
+		},
+
+		/**
+    On Error check
+    @method errorCheck
+    */
+		errorCheck: function(options) {
+
+			// Has an error message been supplied?
+      if (options.errorMessage) {
+
+				var onError = new Backbone.Crudder.onError();
+
+				// Has a onSuccess been activited?
+				if (onError.activated) {
+
+					// Call the start method
+					onError.start({
+
+						message: options.errorMessage
+
+					});
+
+				}
+
+			}
 
 		}
 
@@ -144,15 +338,63 @@ Author(s):
 	*/
 
 	// beforeSend
-	Backbone.Crudder.beforeSend = function() {};
+	Backbone.Crudder.beforeSend = function(options) {
+
+		this.activated = false;
+		this.initialize.apply(this);
+
+	};
+
+	_.extend(Backbone.Crudder.beforeSend.prototype, {
+
+		initialize: function() {},
+		start: function() {}
+
+	});
 
 	// afterSend
-	Backbone.Crudder.afterSend = function() {};
+	Backbone.Crudder.afterSend = function(options) {
+
+		this.activated = false;
+		this.initialize.apply(this);
+
+	};
+
+	_.extend(Backbone.Crudder.afterSend.prototype, {
+
+		initialize: function() {},
+		start: function() {}
+
+	});
 
 	// onSuccess
-	Backbone.Crudder.onSuccess = function() {};
+	Backbone.Crudder.onSuccess = function(options) {
+
+		this.activated = false;
+		this.initialize.apply(this);
+
+	};
+
+	_.extend(Backbone.Crudder.onSuccess.prototype, {
+
+		initialize: function() {},
+		start: function() {}
+
+	});
 
 	// onError
-	Backbone.Crudder.onError = function() {};
+	Backbone.Crudder.onError = function(options) {
+
+		this.activated = false;
+		this.initialize.apply(this);
+
+	};
+
+	_.extend(Backbone.Crudder.onError.prototype, {
+
+		initialize: function() {},
+		start: function() {}
+
+	});
 
 })(this, document, Backbone, _);

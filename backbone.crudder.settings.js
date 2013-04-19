@@ -1,13 +1,14 @@
 /*
-Backbone Crudder Settings v0.1.0
+Backbone Crudder Settings
 Set your prefered method of handling CRUD events
 */
 
 /*
 Requires:
-	* jQuery
+  * jQuery
   * Backbone
   * Underscore
+  * backbone.crudder
 Contents:
   * beforeSend
   * afterSend
@@ -19,19 +20,24 @@ Author(s):
 
 ;(function(window, document, Backbone, _, undefined) {
 
-	'use strict';
+  'use strict';
 
-	/*
+  /*
   Extend Backbone Crudder beforeSend
   @extends Backbone.Crudder.beforeSend.prototype
   */
   _.extend(Backbone.Crudder.beforeSend.prototype, {
 
+    initialize: function() {
+
+      // Activate beforeSend
+      this.activated = true;
+
+    },
+
     start: function() {
 
-			console.log('I have extended the before send function');
-
-		}
+    }
 
   });
 
@@ -41,11 +47,16 @@ Author(s):
   */
   _.extend(Backbone.Crudder.afterSend.prototype, {
 
+    initialize: function() {
+
+      // Activate beforeSend
+      this.activated = true;
+
+    },
+
     start: function() {
 
-			console.log('I have extended the after send function');
-
-		}
+    }
 
   });
 
@@ -55,12 +66,16 @@ Author(s):
   */
   _.extend(Backbone.Crudder.onSuccess.prototype, {
 
+    initialize: function() {
+
+      // Activate beforeSend
+      this.activated = true;
+
+    },
+
     start: function(options) {
 
-			console.log('I have extended the on success function');
-			console.log(options.message);
-
-		}
+    }
 
   });
 
@@ -70,12 +85,16 @@ Author(s):
   */
   _.extend(Backbone.Crudder.onError.prototype, {
 
+    initialize: function() {
+
+      // Activate beforeSend
+      this.activated = true;
+
+    },
+
     start: function(options) {
 
-			console.log('I have extended the on error function');
-			console.log(options.message);
-
-		}
+    }
 
   });
 
