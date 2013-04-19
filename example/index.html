@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Backbone Crudder</title>
+	</head>
+
+	<body>
+
+		<script src="scripts/vendor/jquery-1.8.3.min.js"></script>
+		<script src="scripts/vendor/underscore-1.4.4.min.js"></script>
+		<script src="scripts/vendor/backbone-1.0.0.min.js"></script>
+
+		<script>
+
+			var App = {}; 
+
+		</script>
+
+		<script src="../../assets/js/ajax.min.js"></script>
+		<script src="../../assets/js/plugins/alertify.min.js"></script>
+
+		<script src="../backbone.crudder.js"></script>
+
+		<script>
+
+			$(function() {
+
+				var Model = Backbone.Model.extend({
+
+				  urlRoot: 'users',
+
+				  idAttribute: 'userId'
+
+				});
+
+				var Collection = Backbone.Collection.extend({
+
+					model: Model,
+
+					// Make sure this is set
+				  url: '/api/index.php/jcapi/CPUsers'
+
+				});
+
+				// Create our collection
+				var myCollection = new Collection();
+
+				// Fetch the data
+				// myCollection.fetch();
+				Backbone.Crudder.reading({
+
+					collection: myCollection,
+					data: {
+						test: 1,
+						another: 2
+					},
+					beforeSend: function() {
+						window.alertify.success('Before Send')
+					},
+					afterSend: function() {
+						window.alertify.success('After send')
+					},
+					onSuccess: function() {
+						window.alertify.success('Data received')
+					},
+					onError: function() {
+						window.alertify.error('Unable to retrieve data')
+					}
+
+				}, function(options) {
+
+					console.log(options.success);
+					console.log(options.collection);
+					console.log(options.response);
+					console.log(options.options);
+
+				});
+
+			});
+
+		</script>
+
+	</body>
+</html>
