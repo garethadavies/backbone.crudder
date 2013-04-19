@@ -8,7 +8,12 @@ Requires:
   * Backbone
   * Underscore
 Contents:
-  * 
+  * The Backbone Crudder
+  * Event Functions
+		* beforeSend
+		* afterSend
+		* onSuccess
+		* onError
 Author(s):
   * Gareth Davies @garethadavies
 */
@@ -133,28 +138,21 @@ Author(s):
 
 	};
 
-	var beforeSend = Backbone.Crudder.beforeSend = function(options) {
+	/*
+	Event Functions
+	Only here to be extended via a settings file
+	*/
 
+	// beforeSend
+	Backbone.Crudder.beforeSend = function() {};
 
+	// afterSend
+	Backbone.Crudder.afterSend = function() {};
 
-	};
+	// onSuccess
+	Backbone.Crudder.onSuccess = function() {};
 
-	var afterSend = Backbone.Crudder.afterSend = function(options) {
-
-		
-
-	};
-
-	var onSuccess = Backbone.Crudder.onSuccess = function(options) {
-
-		
-
-	};
-
-	var onError = Backbone.Crudder.onError = function(options) {
-
-		
-
-	};
+	// onError
+	Backbone.Crudder.onError = function() {};
 
 })(this, document, Backbone, _);

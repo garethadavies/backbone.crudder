@@ -1,5 +1,6 @@
 /*
-Backbone Crudder v0.1.0
+Backbone Crudder Settings v0.1.0
+Set your prefered method of handling CRUD events
 */
 
 /*
@@ -8,7 +9,10 @@ Requires:
   * Backbone
   * Underscore
 Contents:
-  * 
+  * beforeSend
+  * afterSend
+  * onSuccess
+  * onError
 Author(s):
   * Gareth Davies @garethadavies
 */
