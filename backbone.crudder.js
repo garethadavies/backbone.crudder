@@ -35,15 +35,10 @@ Author(s):
 
 		/**
     Reading
-    @method creating
+    @method reading
     @param ?? {Object} ??
     collection
-    beforeSend
-    afterSend
-    onSuccess
-    onError
     data (Object)
-    callback
     */
 		reading: function(options, callback) {
 
@@ -54,7 +49,7 @@ Author(s):
 			options.collection.fetch({
 
         // Show the loader overlay
-        beforeSend: this.beforeSend(),
+        beforeSend: new Backbone.Crudder.beforeSend().start(),
 
         // Set any QS values we require
         data: options.data,
@@ -62,9 +57,9 @@ Author(s):
         // Has the collection been returned?
         success: function(collection, response) {
 
-          that.afterSend();
+          var afterSend = new Backbone.Crudder.afterSend().start();
 
-					that.onSuccess({
+					var onSuccess = new Backbone.Crudder.onSuccess().start({
 
 						message: options.successMessage
 
@@ -87,9 +82,9 @@ Author(s):
 
         error: function(collection, response) {
 
-          that.afterSend();
+          var afterSend = new Backbone.Crudder.afterSend().start();
 
-					that.onError({
+					var onError = new Backbone.Crudder.onError().start({
 
 						message: options.errorMessage
 
@@ -114,53 +109,51 @@ Author(s):
 
 		},
 
+		/**
+    Updating
+    @method updating
+    @param ?? {Object} ??
+    */
 		updating: function(options) {
 
 			console.log('updating');
 
 		},
 
+		/**
+    Deleting
+    @method deleting
+    @param ?? {Object} ??
+    */
 		deleting: function(options) {
 
 			console.log('deleting');
 
-		},
-
-		beforeSend: function() {
-
-			// This method can be used to perform any actions
-			// that are required before the AJAX request
-			// e.g. Show a loader graphic
-			console.log('Before Send');
-
-		},
-
-		afterSend: function() {
-
-			// This method can be used to perform any actions
-			// that are required after the AJAX request has completed
-			// e.g. Hide a loader graphic
-			console.log('After send');
-
-		},
-
-		onSuccess: function(options) {
-
-			// This method can be used to perform any actions
-			// that are required after a successful request
-			// e.g. Show a message to inform the user all is ok
-			console.log('Data received');
-
-		},
-
-		onError: function(options) {
-
-			// This method can be used to perform any actions
-			// that are required after a unsuccessful request
-			// e.g. Show a message to inform the user all is not ok
-			console.log('Unable to retrieve data');
-
 		}
+
+	};
+
+	var beforeSend = Backbone.Crudder.beforeSend = function(options) {
+
+
+
+	};
+
+	var afterSend = Backbone.Crudder.afterSend = function(options) {
+
+		
+
+	};
+
+	var onSuccess = Backbone.Crudder.onSuccess = function(options) {
+
+		
+
+	};
+
+	var onError = Backbone.Crudder.onError = function(options) {
+
+		
 
 	};
 
