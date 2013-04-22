@@ -1,6 +1,6 @@
 /*
 Backbone Crudder Settings
-Set your prefered method of handling CRUD events
+This is example Crudder setup code 
 */
 
 /*
@@ -23,78 +23,63 @@ Author(s):
   'use strict';
 
   /*
-  Extend Backbone Crudder beforeSend
-  @extends Backbone.Crudder.beforeSend.prototype
+  Extend Backbone Crudder
+  @extends Backbone.Crudder.prototype
   */
-  _.extend(Backbone.Crudder.beforeSend.prototype, {
+  _.extend(Backbone.Crudder.prototype, {
 
-    initialize: function() {
+    /**
+    Before Send
+    @method beforeSend
+    */
+    beforeSend: function() {
 
-      // Activate beforeSend
-      this.activated = true;
+      // What you want to happen before send
 
     },
 
-    start: function() {
+    /**
+    On Complete
+    @method onComplete
+    */
+    onComplete: function() {
+
+      // What you want to happen on complete
+
+    },
+
+    /**
+    On Success
+    @method onSuccess
+    */
+    onSuccess: function(options) {
+
+      // What you want to happen on success
+
+    },
+
+    /**
+    On Error
+    @method onError
+    */
+    onError: function(options) {
+
+      // What you want to happen on error
 
     }
 
   });
 
   /*
-  Extend Backbone Crudder afterSend
-  @extends Backbone.Crudder.afterSend.prototype
+  Initialise Backbone Crudder
   */
-  _.extend(Backbone.Crudder.afterSend.prototype, {
+  Backbone.Crudder.initialize({
 
-    initialize: function() {
-
-      // Activate beforeSend
-      this.activated = true;
-
-    },
-
-    start: function() {
-
-    }
-
-  });
-
-  /*
-  Extend Backbone Crudder onSuccess
-  @extends Backbone.Crudder.onSuccess.prototype
-  */
-  _.extend(Backbone.Crudder.onSuccess.prototype, {
-
-    initialize: function() {
-
-      // Activate beforeSend
-      this.activated = true;
-
-    },
-
-    start: function(options) {
-
-    }
-
-  });
-
-  /*
-  Extend Backbone Crudder onError
-  @extends Backbone.Crudder.onError.prototype
-  */
-  _.extend(Backbone.Crudder.onError.prototype, {
-
-    initialize: function() {
-
-      // Activate beforeSend
-      this.activated = true;
-
-    },
-
-    start: function(options) {
-
-    }
+    // Set the value to true if you want to method to be called
+    beforeSendActivated: true,
+    onCompleteActivated: true,
+    onSuccessActivated: true,
+    onErrorActivated: true
 
   });
 

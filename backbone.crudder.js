@@ -1,5 +1,6 @@
 /*
-Backbone Crudder v0.1.0
+Backbone Crudder v0.2.0
+Cutting down on boilerplate code for CRUD functionality
 */
 
 /*
@@ -9,11 +10,7 @@ Requires:
   * Underscore
 Contents:
   * The Backbone Crudder
-  * Event Functions
-		* beforeSend
-		* afterSend
-		* onSuccess
-		* onError
+  * Crudder Prototype
 Author(s):
   * Gareth Davies @garethadavies
 */
@@ -29,7 +26,22 @@ Author(s):
 	Backbone.Crudder = {
 
 		/**
-    Creating
+    Initialize
+    @method initialize
+    @param beforeSendActivated {Boolean} Has this options been activated?
+    @param onCompleteActivated {Boolean} Has this options been activated?
+    @param onSuccessActivated {Boolean} Has this options been activated?
+    @param onErrorActivated {Boolean} Has this options been activated?
+    */
+		initialize: function(options) {
+
+			// Initilise the prototype
+			this.proto = new Backbone.Crudder.prototype.initialize(options);
+
+		},
+
+		/**
+    Creating & Updating
     @method creating
     @param entity {Object} The collection or model to fetch
     @param entityData {Object} The entity data to save
@@ -53,9 +65,6 @@ Author(s):
         // Has the collection been returned?
         success: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on success event?
           that.successCheck(options);
 
@@ -76,9 +85,6 @@ Author(s):
 
         error: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on error event?
           that.errorCheck(options);
 
@@ -94,6 +100,13 @@ Author(s):
             });
 
           }
+
+        },
+
+        complete: function() {
+
+					// Do we perform an after send event?
+          that.completeCheck();
 
         }
 
@@ -124,9 +137,6 @@ Author(s):
         // Has the collection been returned?
         success: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on success event?
           that.successCheck(options);
 
@@ -147,9 +157,6 @@ Author(s):
 
         error: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on error event?
           that.errorCheck(options);
 
@@ -165,6 +172,13 @@ Author(s):
             });
 
           }
+
+        },
+
+        complete: function() {
+
+					// Do we perform an after send event?
+          that.completeCheck();
 
         }
 
@@ -196,9 +210,6 @@ Author(s):
         // Has the collection been returned?
         success: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on success event?
           that.successCheck(options);
 
@@ -219,9 +230,6 @@ Author(s):
 
         error: function(data, response) {
 
-          // Do we perform an after send event?
-          that.afterCheck();
-
           // Do we perform an on error event?
           that.errorCheck(options);
 
@@ -238,6 +246,13 @@ Author(s):
 
           }
 
+        },
+
+        complete: function() {
+
+					// Do we perform an after send event?
+          that.completeCheck();
+
         }
 
       });
@@ -250,27 +265,27 @@ Author(s):
     */
 		beforeCheck: function() {
 
-			var beforeSend = new Backbone.Crudder.beforeSend();
+			// Has the 'beforeSend' option been activated?
+			if (this.proto.beforeSendActivated) {
 
-      if (beforeSend.activated) {
-
-				beforeSend.start();
+				// Call the beforeSend method
+				var beforeSend = new Backbone.Crudder.prototype.beforeSend();
 
 			}
 
 		},
 
 		/**
-    After send check
-    @method afterCheck
+    On complete check
+    @method completeCheck
     */
-		afterCheck: function() {
+		completeCheck: function() {
 
-			var afterSend = new Backbone.Crudder.afterSend();
+			// Has the 'onComplete' option been activated?
+			if (this.proto.onCompleteActivated) {
 
-      if (afterSend.activated) {
-
-				afterSend.start();
+				// Call the onComplete method
+				var onComplete = new Backbone.Crudder.prototype.onComplete();
 
 			}
 
@@ -283,19 +298,13 @@ Author(s):
 		successCheck: function(options) {
 
 			// Has a success message been supplied?
-      if (options.successMessage) {
+			if (options.successMessage) {
 
-				var onSuccess = new Backbone.Crudder.onSuccess();
+				// Has the 'onSuccess' option been activated?
+				if (this.proto.onSuccessActivated) {
 
-				// Has a onSuccess been activited?
-				if (onSuccess.activated) {
-
-					// Call the start method
-					onSuccess.start({
-
-						message: options.successMessage
-
-					});
+					// Call the onSuccess method
+					var onSuccess = new Backbone.Crudder.prototype.onSuccess(options);
 
 				}
 
@@ -310,19 +319,13 @@ Author(s):
 		errorCheck: function(options) {
 
 			// Has an error message been supplied?
-      if (options.errorMessage) {
+			if (options.errorMessage) {
 
-				var onError = new Backbone.Crudder.onError();
+				// Has the 'onError' option been activated?
+				if (this.proto.onErrorActivated) {
 
-				// Has a onSuccess been activited?
-				if (onError.activated) {
-
-					// Call the start method
-					onError.start({
-
-						message: options.errorMessage
-
-					});
+					// Call the onError method
+					var onError = new Backbone.Crudder.prototype.onError(options);
 
 				}
 
@@ -333,67 +336,101 @@ Author(s):
 	};
 
 	/*
-	Event Functions
-	Only here to be extended via a settings file
+	Crudder Prototype
+	@prototype
 	*/
 
-	// beforeSend
-	Backbone.Crudder.beforeSend = function(options) {
+	Backbone.Crudder.prototype = function(options) {
 
-		this.activated = false;
 		this.initialize.apply(this);
 
 	};
 
-	_.extend(Backbone.Crudder.beforeSend.prototype, {
+	_.extend(Backbone.Crudder.prototype, {
 
-		initialize: function() {},
-		start: function() {}
+		/**
+    Initialize
+    @method initialize
+    @param beforeSendActivated {Boolean} Has this options been activated?
+    @param onCompleteActivated {Boolean} Has this options been activated?
+    @param onSuccessActivated {Boolean} Has this options been activated?
+    @param onErrorActivated {Boolean} Has this options been activated?
+    */
+		initialize: function(options) {
 
-	});
+			// Has the 'beforeSend' option been activated?
+			if (options.beforeSendActivated) {
 
-	// afterSend
-	Backbone.Crudder.afterSend = function(options) {
+				this.beforeSendActivated = options.beforeSendActivated;
 
-		this.activated = false;
-		this.initialize.apply(this);
+			}
+			else {
 
-	};
+				this.beforeSendActivated = false;
 
-	_.extend(Backbone.Crudder.afterSend.prototype, {
+			}
 
-		initialize: function() {},
-		start: function() {}
+			// Has the 'onComplete' option been activated?
+			if (options.onCompleteActivated) {
 
-	});
+				this.onCompleteActivated = options.onCompleteActivated;
 
-	// onSuccess
-	Backbone.Crudder.onSuccess = function(options) {
+			}
+			else {
 
-		this.activated = false;
-		this.initialize.apply(this);
+				this.onCompleteActivated = false;
 
-	};
+			}
 
-	_.extend(Backbone.Crudder.onSuccess.prototype, {
+			// Has the 'onSuccess' option been activated?
+			if (options.onSuccessActivated) {
 
-		initialize: function() {},
-		start: function() {}
+				this.onSuccessActivated = options.onSuccessActivated;
 
-	});
+			}
+			else {
 
-	// onError
-	Backbone.Crudder.onError = function(options) {
+				this.onSuccessActivated = false;
 
-		this.activated = false;
-		this.initialize.apply(this);
+			}
 
-	};
+			// Has the 'onError' option been activated?
+			if (options.onErrorActivated) {
 
-	_.extend(Backbone.Crudder.onError.prototype, {
+				this.onErrorActivated = options.onErrorActivated;
 
-		initialize: function() {},
-		start: function() {}
+			}
+			else {
+
+				this.onErrorActivated = false;
+
+			}
+
+		},
+
+		/**
+    Before Send
+    @method beforeSend
+    */
+		beforeSend: function() {},
+
+		/**
+    On Complete
+    @method onComplete
+    */
+		onComplete: function() {},
+
+		/**
+    On Success
+    @method onSuccess
+    */
+		onSuccess: function() {},
+
+		/**
+    On Error
+    @method onError
+    */
+		onError: function() {}
 
 	});
 
