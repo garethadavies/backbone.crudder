@@ -1,7 +1,9 @@
 Backbone Crudder
 ================
 
-This will be a backbone plugin that makes crud operations easier over large applications
+This backbone plugin makes CRUD operations easier over large applications. You can set application wide fetch/save/delete callbacks that cut down boilerplate code.
+
+Feel free to use and change this plugin as you wish as it has been developed to suit my own application, but maybe not yours. Fill your boots!
 
 Version currently live: **v0.2.0**
 
