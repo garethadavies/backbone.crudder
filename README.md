@@ -36,7 +36,7 @@ _.extend(Backbone.Crudder.prototype, {
 
   beforeSend: function() {
 
-      // What you want to happen before send
+    // What you want to happen before send
 
   },
 
@@ -80,18 +80,18 @@ Backbone.Crudder.initialize({
 ```js
 Backbone.Crudder.reading({
 
-    entity: this.collection,
+  entity: this.collection,
   errorMessage: 'Error accessing user data'
 
 }, function(options) {
 
-    // Callback function
-    // Do whatever you require to do here
+  // Callback function
+  // Do whatever you require to do here
 
   // Has the request been successful?
   if (options.success) {
 
-    }
+  }
 
 });
 ```
@@ -101,7 +101,7 @@ Backbone.Crudder.reading({
 ```js
 Backbone.Crudder.creatingUpdating({
 
-    entity: this.model,
+  entity: this.model,
   entityData: {
 
     name: 'Gareth',
@@ -115,12 +115,12 @@ Backbone.Crudder.creatingUpdating({
 }, function(options) {
 
   // Callback function
-    // Do whatever you require to do here
+  // Do whatever you require to do here
 
-    // Has the request been successful?
+  // Has the request been successful?
   if (options.success) {
 
-    }
+  }
 
 });
 ```
@@ -130,15 +130,15 @@ Backbone.Crudder.creatingUpdating({
 ```js
 Backbone.Crudder.deleting({
 
-    entity: this.model,
+  entity: this.model,
   wait: true, // Do we want to wait for a server response?
   successMessage: 'The user has been removed',
   errorMessage: 'Unable to remove the user'
 
 }, function(options) {
 
-    // Callback function
-    // Do whatever you require to do here
+  // Callback function
+  // Do whatever you require to do here
 
   // Has the request beed successful?
   if (options.success) {
