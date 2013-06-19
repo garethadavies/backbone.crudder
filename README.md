@@ -5,7 +5,7 @@ This backbone plugin makes CRUD operations easier over large applications. You c
 
 Feel free to use and change this plugin as you wish as it has been developed to suit my own application, but maybe not yours. Fill your boots!
 
-Version currently live: **v0.2.0**
+Current version: **0.2.1**
 
 Requirements
 ------------
@@ -26,9 +26,7 @@ Getting up and running
 
 This script requires jQuery, Backbone and Underscore, so make sure you add it after those files.
 
-```js
-<script src="path/to/file/backbone.crudder.min.js"></script>
-```
+&lt;script src=&quot;path/to/file/backbone.crudder.min.js&quot;&gt;&lt;/script&gt;
 
 ### Extend Crudder
 You can extend Crudder and define what you want to happen when the callbacks are fired.
@@ -110,7 +108,8 @@ Backbone.Crudder.creatingUpdating({
     email: 'gareth@me.com'
 
   },
-  wait: true, // Do we want to wait for a server response?
+  wait: true, // Do we want to wait for a server response? (Default: true)
+  silent: // Do we want to prevent the event from being triggered? (Default: false)
   successMessage: 'The user has been saved',
   errorMessage: 'Unable to save the user'
 
@@ -152,6 +151,11 @@ Backbone.Crudder.deleting({
 
 Changelog
 ---------
+
+### Version 0.2.1
+
+* Added defaults for 'wait' and 'silent' options
+* Added 'silent' options control
 
 ### Version 0.2.0
 

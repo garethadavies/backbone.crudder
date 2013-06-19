@@ -1,5 +1,5 @@
 /*
-Backbone Crudder v0.2.0
+Backbone Crudder v0.2.1
 Cutting down on boilerplate code for CRUD functionality
 */
 
@@ -52,6 +52,14 @@ Author(s):
 		creatingUpdating: function(options, callback) {
 
 			var that = this;
+
+      // Defaults
+      _.defaults(options, {
+
+        wait: true,
+        silent: false
+
+      });
 
 			// Remove this model
       options.entity.save(options.entityData, {
@@ -109,6 +117,12 @@ Author(s):
           that.completeCheck();
 
         }
+
+      },
+      {
+
+        // We don't need a change event
+        silent: options.silent
 
       });
 
@@ -198,6 +212,14 @@ Author(s):
 
 			var that = this;
 
+      // Defaults
+      _.defaults(options, {
+
+        wait: true,
+        silent: false
+
+      });
+
 			// Remove this model
       options.entity.destroy({
 
@@ -254,6 +276,12 @@ Author(s):
           that.completeCheck();
 
         }
+
+      },
+      {
+
+        // We don't need a change event
+        silent: options.silent
 
       });
 
