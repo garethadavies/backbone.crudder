@@ -49,7 +49,6 @@ Author(s):
     @param silent {Boolean} Fire an event?
     @param successMessage {String} Message shown on a successful request
     @param errorMessage {String} Message shown on a failed request
-    @param showLoader {Boolean} Do we want to show a loader graphic?
     */
     creatingUpdating: function(options, callback) {
 
@@ -59,8 +58,7 @@ Author(s):
       _.defaults(options, {
 
         wait: true,
-        silent: false,
-        showLoader: true
+        silent: false
 
       });
 
@@ -137,18 +135,10 @@ Author(s):
     @param entity {Object} The collection or model to fetch
     @param successMessage {String} Message shown on a successful request
     @param errorMessage {String} Message shown on a failed request
-    @param showLoader {Boolean} Do we want to show a loader graphic?
     */
     reading: function(options, callback) {
 
       var _this = this;
-
-      // Defaults
-      _.defaults(options, {
-
-        showLoader: true
-
-      });
 
       // Fetch the data
       options.entity.fetch({
@@ -218,7 +208,6 @@ Author(s):
     @param wait {Boolean} Wait for a server to respond
     @param successMessage {String} Message shown on a successful request
     @param errorMessage {String} Message shown on a failed request
-    @param showLoader {Boolean} Do we want to show a loader graphic?
     */
     deleting: function(options, callback) {
 
@@ -228,8 +217,7 @@ Author(s):
       _.defaults(options, {
 
         wait: true,
-        silent: false,
-        showLoader: true
+        silent: false
 
       });
 

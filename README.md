@@ -17,7 +17,6 @@ Current version: **1.0.0**
 ### Download the script
 
 * [backbone.crudder.js](https://raw.github.com/garethadavies/backbone.crudder/master/backbone.crudder.js)
-* [backbone.crudder-amd.js](https://raw.github.com/garethadavies/backbone.crudder/master/backbone.crudder-amd.js)
 
 ### Reference the script
 
@@ -58,27 +57,65 @@ _.extend(Backbone.Crudder.prototype, {
 });
 ```
 
-### Initialise Crudder
-When you intialise crudder, you can state which of the callbacks you wish to be activated.
+Make sure that you include the backbone.crudder.js file before you extend it.
+
+#### Initialise Crudder
+When you initialise crudder, you can state which of the functions you wish to be activated.
 
 ```js
 Backbone.Crudder.initialize({
 
   beforeSendActivated: true,
-  onCompleteActivated: true,
+  onCompleteActivated: false,
   onSuccessActivated: true,
   onErrorActivated: true
 
 });
 ```
 
-### Example Fetch
+### Using Crudder
+
+#### Options
+
+Each type of Crudder request types share the following options:
+
+```js
+{
+  enitity: this.model // The model or collection you wish to perfom the operation on {model or collection}
+  successMessage: 'User data has been fetched', // The message to display on a successful request {String}
+  errorMessage: 'Error accessing user data', // The message to display on a request error {String}
+}
+```
+
+The success and error messages are passed into the ```onSuccess``` and ```onError``` methods, for you to display them however your wish.
+
+The creating/updating/deleting requests share the following options:
+
+```js
+{
+  wait: true, // Do we want to wait for a server response? (Boolean, Default: true)
+  silent: true, // Do we want to prevent the built-in Backbone event from being triggered (Boolean, Default: false)
+}
+```
+
+The creating/updating request has the following options:
+
+```js
+{
+  entityData: {} // The data to send to the server (Object)
+}
+```
+
+#### Example Fetch
+
+##### Options
 
 ```js
 Backbone.Crudder.reading({
 
   entity: this.collection,
-  errorMessage: 'Error accessing user data'
+  successMessage: 'User data has been fetched',
+  errorMessage: 'Error accessing user data',
 
 }, function(options) {
 
@@ -93,7 +130,7 @@ Backbone.Crudder.reading({
 });
 ```
 
-### Example Save
+#### Example Save
 
 ```js
 Backbone.Crudder.creatingUpdating({
@@ -105,8 +142,8 @@ Backbone.Crudder.creatingUpdating({
     email: 'gareth@me.com'
 
   },
-  wait: true, // Do we want to wait for a server response? (Default: true)
-  silent: // Do we want to prevent the event from being triggered? (Default: false)
+  wait: true,
+  silent: true,
   successMessage: 'The user has been saved',
   errorMessage: 'Unable to save the user'
 
@@ -123,13 +160,16 @@ Backbone.Crudder.creatingUpdating({
 });
 ```
 
-### Example Delete
+You may want to look at Derick Bailey's [Backbone.Syphon](https://github.com/derickbailey/backbone.syphon) as an easy way to serialise the forms in your backbone application.
+
+#### Example Delete
 
 ```js
 Backbone.Crudder.deleting({
 
   entity: this.model,
-  wait: true, // Do we want to wait for a server response?
+  wait: true,
+  silent: true,
   successMessage: 'The user has been removed',
   errorMessage: 'Unable to remove the user'
 
@@ -145,24 +185,3 @@ Backbone.Crudder.deleting({
 
 });
 ```
-
-## Changelog
-
-### Version 1.0.0
-
-* Added 'showLoader' options to control when loader is shown
-* Moved into production
-
-### Version 0.2.1
-
-* Added defaults for 'wait' and 'silent' options
-* Added 'silent' options control
-
-### Version 0.2.0
-
-* Simplified the initialisation process
-* Refactored all the code
-
-### Version 0.1.0
-
-* Initial commit
