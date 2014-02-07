@@ -4,29 +4,29 @@ This backbone plugin makes CRUD operations easier over large applications. You c
 
 Feel free to use and change this plugin as you wish as it has been developed to suit my own application, but maybe not yours. Fill your boots!
 
-Current version: **0.2.1**
+Current version: **1.0.0**
 
 ### Requirements
 
-* jQuery (1.8.3) - http://jquery.com
-* Backbone (1.0.0) - http://backbonejs.org
-* Underscore (1.4.4) - http://underscorejs.com
+* jQuery (>=1.8.3) - http://jquery.com
+* Backbone (>=1.0.0) - http://backbonejs.org
+* Underscore (>=1.4.4) - http://underscorejs.com
 
 ## Getting up and running
 
 ### Download the script
 
 * [backbone.crudder.js](https://raw.github.com/garethadavies/backbone.crudder/master/backbone.crudder.js)
-* [backbone.crudder.min.js](https://raw.github.com/garethadavies/backbone.crudder/master/backbone.crudder.min.js)
+* [backbone.crudder-amd.js](https://raw.github.com/garethadavies/backbone.crudder/master/backbone.crudder-amd.js)
 
 ### Reference the script
 
 This script requires jQuery, Backbone and Underscore, so make sure you add it after those files.
 
-&lt;script src=&quot;path/to/file/backbone.crudder.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;path/to/file/backbone.crudder.js&quot;&gt;&lt;/script&gt;
 
 ### Extend Crudder
-You can extend Crudder and define what you want to happen when the callbacks are fired.
+You can extend Crudder and define what you want to happen when the provided callbacks are fired.
 
 ```js
 _.extend(Backbone.Crudder.prototype, {
@@ -59,7 +59,7 @@ _.extend(Backbone.Crudder.prototype, {
 ```
 
 ### Initialise Crudder
-When you intialise crudder, you can state which of the callbacks you wish to be fired.
+When you intialise crudder, you can state which of the callbacks you wish to be activated.
 
 ```js
 Backbone.Crudder.initialize({
