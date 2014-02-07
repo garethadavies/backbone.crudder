@@ -1,5 +1,4 @@
-Backbone Crudder
-================
+# Backbone Crudder
 
 This backbone plugin makes CRUD operations easier over large applications. You can set application wide fetch/save/delete callbacks that cut down boilerplate code.
 
@@ -7,15 +6,13 @@ Feel free to use and change this plugin as you wish as it has been developed to 
 
 Current version: **0.2.1**
 
-Requirements
-------------
+### Requirements
 
 * jQuery (1.8.3) - http://jquery.com
 * Backbone (1.0.0) - http://backbonejs.org
 * Underscore (1.4.4) - http://underscorejs.com
 
-Getting up and running
-----------------------
+## Getting up and running
 
 ### Download the script
 
@@ -149,8 +146,12 @@ Backbone.Crudder.deleting({
 });
 ```
 
-Changelog
----------
+## Changelog
+
+### Version 1.0.0
+
+* Added 'showLoader' options to control when loader is shown
+* Moved into production
 
 ### Version 0.2.1
 
