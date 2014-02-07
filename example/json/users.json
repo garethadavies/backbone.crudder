@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": 123,
+      "name": "Gareth",
+      "twitter": "@GarethDavies_Me"
+    },
+    {
+      "id": 1234,
+      "name": "Davies",
+      "twitter": "@GarethDavies_Me"
+    }
+  ]
+}

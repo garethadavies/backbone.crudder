@@ -56,6 +56,9 @@ Author(s):
 
       // What you want to happen on success
 
+      // Check your console
+      console.log(options);
+
     },
 
     /**
@@ -65,6 +68,9 @@ Author(s):
     onError: function(options) {
 
       // What you want to happen on error
+
+      // Check your console
+      console.log(options);
 
     }
 

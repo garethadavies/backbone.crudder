@@ -17,9 +17,6 @@
 
 		</script>
 
-		<script src="../../assets/js/ajax.min.js"></script>
-		<script src="../../assets/js/plugins/alertify.min.js"></script>
-
 		<script src="../backbone.crudder.js"></script>
 		<script src="../backbone.crudder.settings.js"></script>
 
@@ -29,9 +26,9 @@
 
 				var Model = Backbone.Model.extend({
 
-				  urlRoot: 'users',
+				  url: 'json/users.json',
 
-				  idAttribute: 'userId'
+				  idAttribute: 'id'
 
 				});
 
@@ -40,14 +37,7 @@
 					model: Model,
 
 					// Make sure this is set
-				  url: '/api/index.php/jcapi/CPUsers',
-
-				  parse: function(response) {
-
-			      // Return the data
-			      return response.data;
-
-			    }
+				  url: 'json/users.json'
 
 				});
 
@@ -71,9 +61,8 @@
 
 				}, function(options) {
 
-					console.log(options.success);
-					// console.log(options.collection);
-					// console.log(options.response);
+					// Check your console
+					console.log(options);
 
 				});
 
